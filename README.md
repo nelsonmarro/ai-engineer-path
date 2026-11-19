@@ -1,245 +1,204 @@
-# Ruta AI Engineer — 24 semanas
+# Ruta AI Engineer — v2: práctica, con fuentes y certificados oficiales
 
-Plan de estudio para pasar de fullstack senior a **AI Engineer**: construir productos confiables sobre modelos de lenguaje (LLMs), sin entrenar modelos desde cero.
+Plan para pasar de fullstack senior a **AI Engineer**, rehecho con tres reglas:
 
-- **Dedicación:** 2 h/día, 5 días a la semana (~10 h/semana). Los fines de semana son colchón para ponerte al día, no obligación.
-- **Duración:** 24 semanas (~6 meses), en 6 fases.
-- **Punto de partida:** 7 años de fullstack, Python básico.
-- **Regla de oro:** 30 % estudiar, 70 % construir. Si una semana solo viste videos, no avanzaste.
-- **Costo:** todo es gratuito. Las APIs de modelos sí cobran, así que el plan usa modelos locales con **Ollama** y la capa gratuita de la **API de Gemini** por defecto. Al final hay una sección aparte con libros de pago, para cuando decidas invertir (a partir del mes 4).
+1. **Fuentes oficiales primero:** el curso o la documentación de quien fabrica la herramienta (Anthropic, Google, Hugging Face, Microsoft, MCP).
+2. **Cada semana termina con dos cosas:** algo construido en GitHub y, cuando existe, un certificado o insignia oficial.
+3. **Mes 1 a costo $0.** Nada de lo que aparece en las semanas 1–4 requiere tarjeta.
+
+- **Dedicación:** 2 h/día, 5 días por semana (~10 h/semana, ~40 h en el mes 1).
+- **Duración total:** 24 semanas. El mes 1 está detallado día por día; los meses 2–6 por semana.
+- **Versión anterior:** el plan de 24 semanas original sigue en el historial de git (commit `f040f5e`).
+
+> Verificado el 19 de noviembre de 2026. Precios y catálogos cambian: confirma en la página oficial antes de inscribirte.
 
 ---
 
-## Cómo usar este plan
+## Qué significa "certificación oficial" (y qué es gratis)
 
-1. Marca las casillas `- [ ]` → `- [x]` a medida que avanzas (GitHub las muestra como checkboxes).
-2. Crea **un repositorio por proyecto** dentro de esta carpeta o en tu GitHub. Los 4 proyectos son tu portafolio.
-3. Lleva un archivo `diario.md`: 3–5 líneas al final de cada sesión con lo que aprendiste y lo que te bloqueó. Te sirve para repasar y luego para escribir posts.
-4. Si te atrasas, **recorta teoría, nunca el entregable de la semana**.
+Hay dos niveles distintos y conviene no confundirlos:
+
+| Nivel | Qué es | Costo | Ejemplos |
+|---|---|---|---|
+| **A. Certificado o insignia de curso** | Lo emite el propio fabricante al terminar su curso y aprobar el quiz o los ejercicios. No hay examen supervisado. | **Gratis** | Claude Academy (Anthropic), Hugging Face, Kaggle Learn y Google ML Crash Course, Microsoft Learn |
+| **B. Certificación con examen supervisado** | Examen vigilado (Pearson VUE), con nota de corte y vigencia. Es lo que una empresa entiende por "certificado". | **De pago** | Microsoft AI-103 (~US$165), Claude Certified Developer/Architect (US$125), Google Generative AI Leader (US$99) |
+
+**Estrategia:** el mes 1 acumula solo nivel A (6–8 credenciales, $0). El nivel B se decide a partir del mes 4, con el portafolio ya hecho. Ver [Certificaciones de pago](#certificaciones-de-pago-decidir-desde-el-mes-4).
+
+Un certificado de nivel A prueba que terminaste el curso, no que sabes construir. Por eso cada uno va pegado a un entregable en código.
+
+---
+
+## Preparación (30 min, antes del día 1)
+
+Crea estas cuentas, todas gratuitas y sin tarjeta:
+
+- [ ] [Claude Academy](https://academy.claude.com) — cursos oficiales de Anthropic (antes "Anthropic Academy")
+- [ ] [Hugging Face](https://huggingface.co/join) — cursos, modelos y Spaces
+- [ ] [Kaggle](https://www.kaggle.com) — Kaggle Learn (es de Google)
+- [ ] [Google AI Studio](https://ai.google.dev) — clave de la API de Gemini, capa gratuita
+- [ ] [Microsoft Learn](https://learn.microsoft.com) — con una cuenta Microsoft personal
+- [ ] Usa **el mismo nombre completo** en todas: es el que saldrá impreso en los certificados
+- [ ] Instala [Ollama](https://ollama.com) y [uv](https://docs.astral.sh/uv/)
+- [ ] Crea la carpeta `certificados/` en este repo
 
 ### Estructura de una sesión de 2 horas
 | Tiempo | Actividad |
 |---|---|
-| 0:00–0:40 | Estudio (video, curso, lectura) |
-| 0:40–1:50 | Construir / programar |
-| 1:50–2:00 | Diario + commit |
+| 0:00–0:45 | Curso oficial (video + quiz) |
+| 0:45–1:50 | Construir lo de la semana |
+| 1:50–2:00 | `diario.md` + commit |
 
-### Stack de trabajo
-- **Python moderno:** `uv` (gestor de paquetes), type hints, `async`, Pydantic, FastAPI, pytest.
-- **Modelos:** Ollama (local, gratis) + API de Gemini (capa gratuita). Escribe tu código detrás de una interfaz para poder cambiar a Claude u OpenAI sin reescribir nada.
-- **Datos:** PostgreSQL + pgvector (ya conoces SQL, no necesitas una base vectorial aparte).
-- **Tus fortalezas:** Go o C# para el servidor MCP del Proyecto 3. Hay pocos ejemplos en esos lenguajes y eso te diferencia.
+Si te atrasas, **recorta video, nunca el entregable**.
+
+### Modelos sin pagar
+- **Ollama** (local) y la **capa gratuita de la API de Gemini**. Los límites gratuitos de Gemini cambian seguido y ya no están en una tabla fija: míralos en AI Studio para tu proyecto.
+- La API de Claude es de pago. Los cursos de Claude Academy se pueden seguir y aprobar sin ella; haz los ejercicios de código contra Gemini u Ollama. Traducir el ejemplo a otro proveedor es buena práctica, no un atajo.
+- Escribe siempre tu código detrás de una interfaz `LLMClient` para cambiar de proveedor sin reescribir.
 
 ---
 
-## Mapa general
+## MES 1 — Cuatro semanas, $0
 
-| Fase | Semanas | Tema | Entregable |
+| Semana | Tema | Fuente oficial | Entregable | Credencial |
+|---|---|---|---|---|
+| 1 | Bases: cómo funciona un LLM + Python de producción | Google, Kaggle | `fastapi-llm-template` | Insignia Google + certificado Kaggle |
+| 2 | Construir con la API de un modelo | Anthropic | `extractor-estructurado` | Certificado *Building with the Claude API* |
+| 3 | MCP | Anthropic, modelcontextprotocol.io | `mcp-server` en Go o C# | 2 certificados de MCP |
+| 4 | Agentes | Hugging Face | `agente-a-mano` usando tu servidor MCP | Certificado *Fundamentals* de HF |
+
+### Semana 1 — Bases y entorno
+
+**Credenciales:** insignia *Large language models* (Google) + certificado *Python* (Kaggle).
+
+- [ ] **Día 1 — Entorno.** Proyecto con `uv`, modelo pequeño corriendo en Ollama, primera llamada a Gemini desde Python. Lee [uv: primeros pasos](https://docs.astral.sh/uv/getting-started/).
+- [ ] **Día 2 — Cómo funciona un LLM.** [Google Machine Learning Crash Course](https://developers.google.com/machine-learning/crash-course), módulo *Large language models*: tokens, transformers, por qué alucinan. Aprueba el quiz → **insignia** en tu perfil de Google Developers.
+- [ ] **Día 3 — Python.** [Kaggle Learn: Python](https://www.kaggle.com/learn/python). Ya sabes lo básico: ve directo a los ejercicios. Al completarlos → **certificado**.
+- [ ] **Día 4 — Tipado y validación.** [Pydantic: modelos](https://docs.pydantic.dev/latest/concepts/models/) y el [tutorial oficial de FastAPI](https://fastapi.tiangolo.com/tutorial/) hasta *Request Body*.
+- [ ] **Día 5 — Entregable.** `fastapi-llm-template`: endpoint `/chat`, interfaz `LLMClient` con dos implementaciones (Ollama y Gemini), configuración por variables de entorno, 3 tests con pytest y Dockerfile. La reutilizas todo el plan.
+- [ ] *Opcional, fin de semana:* [Kaggle Learn: Intro to Machine Learning](https://www.kaggle.com/learn/intro-to-machine-learning) → otro certificado.
+
+### Semana 2 — Construir con la API de un modelo
+
+**Credencial:** certificado *Building with the Claude API* (Claude Academy).
+
+- [ ] **Días 1–3 — Curso.** [Claude Academy](https://academy.claude.com) → *Building with the Claude API*. Es el curso más largo del mes: resérvale las tres sesiones. Temas: mensajes, system prompts, salida estructurada, tool use, streaming, evaluación de prompts.
+- [ ] **En paralelo:** repite cada ejercicio contra Gemini usando su [documentación oficial](https://ai.google.dev/gemini-api/docs) (structured output y function calling).
+- [ ] **Día 4 — Prompts.** [Tutorial interactivo de prompt engineering de Anthropic](https://github.com/anthropics/prompt-eng-interactive-tutorial), capítulos 1–6.
+- [ ] **Día 5 — Entregable.** `extractor-estructurado`: recibe texto libre (factura, CV o contrato) y devuelve un objeto Pydantic validado. Si la validación falla, reintenta enviándole el error al modelo. Incluye 15 casos de prueba con resultado esperado y un script que imprime el % de campos correctos.
+- [ ] Aprueba la evaluación final → **certificado**.
+
+### Semana 3 — MCP
+
+**Credenciales:** certificados *Introduction to Model Context Protocol* y *Model Context Protocol: Advanced Topics* (Claude Academy).
+
+- [ ] **Día 1 —** *Introduction to Model Context Protocol* → **certificado**.
+- [ ] **Día 2 —** [Documentación oficial de MCP](https://modelcontextprotocol.io): arquitectura, tools, resources, prompts. Elige SDK: [Go](https://github.com/modelcontextprotocol/go-sdk) o [C#](https://csharp.sdk.modelcontextprotocol.io).
+- [ ] **Días 3–4 — Entregable.** `mcp-server` en Go o C# con 3 herramientas de solo lectura sobre algo que conozcas (una base Postgres con esquema documentado, una API interna o tus propios repos). Validación de entradas y descripciones claras. Pruébalo con el MCP Inspector oficial.
+- [ ] **Día 5 —** *Model Context Protocol: Advanced Topics* → **certificado**. Aplica una cosa del curso a tu servidor.
+
+Aquí te diferencias: casi todos los ejemplos de MCP están en Python o TypeScript, y tú lo entregas en Go o C#.
+
+### Semana 4 — Agentes
+
+**Credencial:** certificado *Fundamentals* del Hugging Face Agents Course.
+
+- [ ] **Días 1–2 —** [Hugging Face Agents Course](https://huggingface.co/learn/agents-course), unidades 0 y 1: herramientas, ciclo pensamiento → acción → observación. Aprueba el quiz de la unidad 1 → **certificado Fundamentals**. No tiene fecha límite.
+- [ ] **Día 3 —** [Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) (Anthropic): cuándo usar un flujo fijo y cuándo un agente.
+- [ ] **Días 3–4 — Entregable.** `agente-a-mano`: bucle de tool calling escrito sin framework (~150 líneas) que se conecta a tu `mcp-server` y resuelve 5 tareas de varios pasos. Registra pasos y tokens por tarea.
+- [ ] **Día 5 — Cierre del mes.** Sube los PDF a `certificados/`, completa la tabla de abajo, agrégalos a LinkedIn (sección *Licencias y certificaciones*) y escribe 10 líneas en `diario.md`: qué fue fácil, qué no entendiste, qué quieres profundizar.
+- [ ] *Opcional:* *Claude Code in Action* (Claude Academy) → otro certificado.
+
+### Credenciales del mes 1
+
+| # | Credencial | Emisor | Semana | Hecho | Enlace |
+|---|---|---|---|---|---|
+| 1 | Insignia *MLCC: Large language models* | Google | 1 | [ ] | |
+| 2 | Certificado *Python* | Kaggle (Google) | 1 | [ ] | |
+| 3 | Certificado *Building with the Claude API* | Anthropic | 2 | [ ] | |
+| 4 | Certificado *Introduction to MCP* | Anthropic | 3 | [ ] | |
+| 5 | Certificado *MCP: Advanced Topics* | Anthropic | 3 | [ ] | |
+| 6 | Certificado *Agents Course — Fundamentals* | Hugging Face | 4 | [ ] | |
+| 7 | *(opcional)* *Intro to Machine Learning* | Kaggle | 1 | [ ] | |
+| 8 | *(opcional)* *Claude Code in Action* | Anthropic | 4 | [ ] | |
+
+**Al terminar el mes 1 tienes:** 6–8 credenciales oficiales, 4 repos pequeños que funcionan y $0 gastados.
+
+---
+
+## MESES 2–6 — Portafolio y certificaciones mayores
+
+Sigue todo gratis salvo que decidas presentarte a un examen.
+
+### Mes 2 (semanas 5–8) — RAG
+
+Este mes pesa más el proyecto que los certificados: casi no hay credenciales oficiales gratuitas de RAG.
+
+- [ ] **Sem 5:** [Hugging Face LLM Course](https://huggingface.co/learn/llm-course), capítulos 1–2 (transformers, tokenizers, embeddings). [pgvector](https://github.com/pgvector/pgvector): índices y distancias. Construir: búsqueda semántica sobre 1.000 frases en Postgres, comparada con full-text.
+- [ ] **Sem 6:** [Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval) (Anthropic): chunking, búsqueda híbrida, reranking. Documentación de embeddings de Gemini.
+- [ ] **Sem 7–8 — Proyecto 1: asistente RAG** sobre un corpus público que te importe. Ingesta con metadatos, búsqueda híbrida, respuestas con citas a la fuente y "no sé" cuando falta contexto. API FastAPI + interfaz mínima en React. Etiqueta `v1` en git.
+
+### Mes 3 (semanas 9–12) — Agentes a fondo
+
+- [ ] **Sem 9–10:** Hugging Face Agents Course, unidades 2–3 (smolagents, LlamaIndex, LangGraph, RAG agéntico).
+- [ ] **Sem 11:** unidad 4, reto final → **certificado de finalización** del Agents Course.
+- [ ] **Sem 11:** [Hugging Face MCP Course](https://huggingface.co/learn/mcp-course) → **certificado**.
+- [ ] **Sem 12:** Claude Academy: *Introduction to agent skills* e *Introduction to subagents* → **2 certificados**.
+- [ ] **Proyecto 2:** amplía tu `mcp-server` a 5 herramientas con permisos mínimos y un agente que lo usa. 20 tareas de evaluación con criterio de éxito (¿la completó?, ¿cuántos pasos?, ¿cuánto costó?).
+
+### Mes 4 (semanas 13–16) — Evals, seguridad y producción
+
+Lo que separa a un AI engineer de alguien que hace demos: demostrar con datos que el sistema funciona.
+
+- [ ] **Sem 13:** [Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/). Corre 50 preguntas reales contra tu RAG v1, revísalas a mano y agrupa los fallos.
+- [ ] **Sem 14:** evals automatizadas con [promptfoo](https://www.promptfoo.dev) o [Inspect](https://inspect.aisi.org.uk). Dataset de 100 casos, recall@k y fidelidad a las fuentes. Evals en GitHub Actions.
+- [ ] **Sem 15:** [OWASP Top 10 for LLM Applications](https://genai.owasp.org/llm-top-10/). Intenta romper tu RAG y tu agente con inyección de prompts y documenta las defensas.
+- [ ] **Sem 16:** RAG v2 con tabla **v1 vs v2** en el README. Trazas y costos con [Langfuse](https://langfuse.com) autoalojado.
+- [ ] **Revisión de presupuesto:** decide aquí si vas por una certificación de pago.
+
+### Meses 5–6 (semanas 17–24) — Capstone y examen
+
+- [ ] **Sem 17–20 — Proyecto 3 (capstone):** lleva el Proyecto 1 o el 2 a producción. Docker en un servicio con capa gratuita, autenticación, rate limiting, límite de gasto por usuario, evals en CI.
+- [ ] **Sem 21–23 — Preparación del examen elegido** (ver abajo) con su ruta oficial gratuita.
+- [ ] **Sem 24:** artículo técnico sobre el capstone (problema, arquitectura, qué falló, métricas antes y después) y, si lo decidiste, examen.
+
+---
+
+## Certificaciones de pago (decidir desde el mes 4)
+
+| Certificación | Emisor | Precio aprox. | Para ti |
 |---|---|---|---|
-| 0 | 1–2 | Python para producción | Plantilla de proyecto FastAPI + tests |
-| 1 | 3–5 | Cómo funcionan los LLMs por dentro | Notebook con un mini-GPT entrenado |
-| 2 | 6–9 | Construir con APIs de modelos | **Proyecto 1:** extractor de datos estructurados |
-| 3 | 10–13 | Embeddings y RAG | **Proyecto 2:** RAG sobre documentos reales |
-| 4 | 14–16 | Evals (la habilidad que más te diferencia) | Suite de evals para el Proyecto 2 + informe |
-| 5 | 17–20 | Agentes, tool use y MCP | **Proyecto 3:** servidor MCP en Go/C# + agente |
-| 6 | 21–24 | Producción: costos, seguridad, observabilidad | **Proyecto 4:** capstone desplegado + artículo |
+| **AI-103 — Azure AI Apps and Agents Developer Associate** | Microsoft | US$165 (varía por país) | **La más recomendable.** Reemplazó a la AI-102 (retirada el 30 de junio de 2026). Se centra en apps y agentes con Microsoft Foundry y encaja con tu experiencia en C#/.NET. Toda la preparación es gratis en Microsoft Learn. |
+| **Claude Certified Developer – Foundations** | Anthropic | US$125 | Muy alineada con el mes 1, pero a octubre de 2026 varias fuentes indican que el registro está limitado a empleados de empresas del Claude Partner Network. Confirma antes de planificarla. |
+| **Generative AI Leader** | Google Cloud | US$99 | No: está pensada para perfiles no técnicos. |
 
----
+**Cómo bajar el costo de la AI-103:** Microsoft reparte vales en sus eventos. En el AI Skills Fest de junio de 2026 dio vales del 100 % a quien completó una lista de cursos en Microsoft Learn. Sigue el *Skills Hub Blog* de Microsoft Tech Community y apúntate a los retos cuando salgan.
 
-## Fase 0 — Python para producción (semanas 1–2)
-
-Ya sabes programar; aquí solo aprendes "el Python de los equipos de IA".
-
-### Semana 1 — Herramientas y tipado
-- [ ] [Documentación de uv](https://docs.astral.sh/uv/): crear proyecto, dependencias, entornos
-- [ ] [Pydantic — Concepts](https://docs.pydantic.dev/latest/concepts/models/): modelos, validación, serialización (lo usarás para *todas* las salidas de los LLMs)
-- [ ] Type hints, `dataclasses`, `async/await` en Python (artículos gratuitos de [Real Python](https://realpython.com/))
-- [ ] **Construir:** script que lee un CSV, lo valida con Pydantic y reporta errores
-
-### Semana 2 — APIs y tests
-- [ ] [Tutorial oficial de FastAPI](https://fastapi.tiangolo.com/tutorial/) (hasta "Dependencies" y "Testing")
-- [ ] pytest básico + fixtures
-- [ ] Instalar [Ollama](https://ollama.com) y correr un modelo pequeño (p. ej. Llama o Qwen de 3–8B)
-- [ ] Crear una clave gratuita en [Google AI Studio](https://ai.google.dev) (API de Gemini)
-- [ ] **Entregable:** plantilla `fastapi-llm-template` con un endpoint `/chat` que llama a Ollama, config por variables de entorno, tests y Dockerfile. La reutilizarás en todos los proyectos.
-
----
-
-## Fase 1 — Cómo funcionan los LLMs (semanas 3–5)
-
-No vas a entrenar modelos, pero entender tokens, atención y por qué alucinan te hace tomar mejores decisiones de ingeniería.
-
-### Semana 3 — Intuición
-- [ ] [3Blue1Brown — Neural Networks](https://www.3blue1brown.com/topics/neural-networks), capítulos 1–4 (redes, gradiente, backprop)
-- [ ] 3Blue1Brown, capítulos 5–7 (transformers, atención, cómo guardan "hechos")
-- [ ] Karpathy, *Intro to Large Language Models* (1 h) — [canal de YouTube](https://www.youtube.com/@AndrejKarpathy)
-- [ ] **Construir:** juega con [Tiktokenizer](https://tiktokenizer.vercel.app): ¿cuántos tokens cuesta el español vs. el inglés? ¿y el código? Anota hallazgos en tu diario.
-
-### Semana 4 — LLMs en profundidad
-- [ ] Karpathy, *Deep Dive into LLMs like ChatGPT* (3,5 h; divídelo en 3 sesiones): pre-entrenamiento, post-entrenamiento, RLHF, alucinaciones, modelos de razonamiento
-- [ ] [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) (Jay Alammar)
-- [ ] **Construir:** notebook que llama al mismo prompt con temperatura 0, 0.7 y 1.5, 10 veces cada uno, y mide la variación. Primer contacto con la naturaleza probabilística.
-
-### Semana 5 — Construir un GPT pequeño
-- [ ] [Neural Networks: Zero to Hero](https://karpathy.ai/zero-to-hero.html): *micrograd* (opcional si vas corto de tiempo)
-- [ ] Zero to Hero: *Let's build GPT: from scratch, in code, spelled out* — programa junto al video
-- [ ] Zero to Hero: *Let's build the GPT Tokenizer* (al menos la primera mitad)
-- [ ] **Entregable:** notebook con tu mini-GPT entrenado sobre un texto en español (p. ej. una novela de dominio público) + 1 página explicando con tus palabras qué es un token, un embedding y la atención.
-
-> Libros gratuitos de consulta para esta fase (no para leer completos): [Understanding Deep Learning](https://udlbook.github.io/udlbook/) de Simon Prince (PDF gratis, capítulo 12 = transformers) y [Dive into Deep Learning](https://d2l.ai).
-
----
-
-## Fase 2 — Construir con APIs de modelos (semanas 6–9)
-
-### Semana 6 — Prompt engineering serio
-- [ ] [Tutorial interactivo de prompt engineering de Anthropic](https://github.com/anthropics/prompt-eng-interactive-tutorial) (capítulos 1–9; los conceptos sirven para cualquier modelo)
-- [ ] Whitepaper *Prompt Engineering* de Google (gratis en Kaggle, búscalo por nombre)
-- [ ] **Construir:** 5 prompts para la misma tarea (clasificar tickets de soporte), compáralos en 20 ejemplos escritos por ti. Anota cuál ganó y por qué.
-
-### Semana 7 — Salida estructurada y tool calling
-- [ ] [Anthropic Academy](https://anthropic.skilljar.com) → curso **Building with the Claude API** (gratis, con certificado). Puedes seguirlo conceptualmente aunque uses otro proveedor.
-- [ ] [Repositorio anthropics/courses](https://github.com/anthropics/courses): notebooks de *Tool use*
-- [ ] [OpenAI Cookbook](https://cookbook.openai.com): ejemplos de structured outputs y function calling
-- [ ] **Construir:** función que recibe texto libre y devuelve un objeto Pydantic validado; si la validación falla, reintenta enviándole el error al modelo.
-
-### Semanas 8–9 — Proyecto 1
-- [ ] [Microsoft — Generative AI for Beginners](https://github.com/microsoft/generative-ai-for-beginners): lecciones de *Building chat apps* y *Securing AI applications* (hay [versión .NET](https://github.com/microsoft/Generative-AI-for-beginners-dotnet) si quieres ver los mismos conceptos en C#)
-- [ ] Streaming de respuestas (SSE en FastAPI)
-
-**Proyecto 1 — Extractor de documentos.** Una API que recibe facturas, contratos o CVs (PDF o texto) y devuelve JSON estructurado y validado.
-- [ ] Esquema Pydantic + extracción con reintentos
-- [ ] Soporte para al menos 2 proveedores de modelo detrás de una interfaz común
-- [ ] Registro de tokens usados y tiempo por petición
-- [ ] 30 documentos de prueba con su resultado esperado y un script que mide el % de campos correctos
-- [ ] README explicando decisiones (por qué ese esquema, qué falla y por qué)
-
----
-
-## Fase 3 — Embeddings y RAG (semanas 10–13)
-
-### Semana 10 — Embeddings y búsqueda vectorial
-- [ ] [Hugging Face LLM Course](https://huggingface.co/learn/llm-course): capítulos 1–2 (transformers, tokenizers, cómo usar modelos de embeddings)
-- [ ] [pgvector — README](https://github.com/pgvector/pgvector): índices HNSW vs IVFFlat, distancias
-- [ ] **Construir:** genera embeddings de 1.000 frases con un modelo local, guárdalos en Postgres y haz búsqueda semántica. Compara con `ILIKE` y full-text search de Postgres.
-
-### Semana 11 — RAG bien hecho
-- [ ] [Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval) (Anthropic): chunking, búsqueda híbrida (BM25 + vectores), reranking
-- [ ] [DeepLearning.AI](https://www.deeplearning.ai/short-courses/) → *Building and Evaluating Advanced RAG* (verifica que siga gratis al inscribirte)
-- [ ] [Patterns for Building LLM-based Systems & Products](https://eugeneyan.com/writing/llm-patterns/) (Eugene Yan) — lectura clave, vuelve a ella varias veces
-
-### Semanas 12–13 — Proyecto 2
-**Proyecto 2 — Asistente RAG sobre documentos reales.** Elige un corpus público que conozcas y te importe: normativa o leyes públicas, documentación técnica de un framework, manuales de tu empresa (si te dejan).
-- [ ] Ingesta: parseo de PDFs/HTML, chunking con metadatos (fuente, sección, página)
-- [ ] Búsqueda híbrida (pgvector + full-text de Postgres) y reranking
-- [ ] Respuestas con **citas** a la fuente exacta; si no hay contexto suficiente, el sistema dice "no sé"
-- [ ] API FastAPI + interfaz mínima (React, que ya dominas)
-- [ ] Versión v1 congelada en un tag de git (la mejorarás con evals en la fase 4)
-
----
-
-## Fase 4 — Evals (semanas 14–16)
-
-Esta es la fase que más te separa de la gente que solo hace demos. Un AI engineer sabe **demostrar con datos** que su sistema funciona y que un cambio lo mejoró.
-
-### Semana 14 — Análisis de errores
-- [ ] [Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/) (Hamel Husain)
-- [ ] [A Field Guide to Rapidly Improving AI Products](https://hamel.dev/blog/posts/field-guide/)
-- [ ] Video: [Intro to Error Analysis With Just Spreadsheets](https://www.youtube.com/watch?v=BsWxPI9UM4c)
-- [ ] **Construir:** corre 50 preguntas reales contra tu RAG v1, revisa cada respuesta a mano en una hoja de cálculo y agrupa los fallos en categorías (recuperó mal, alucinó, citó mal, etc.)
-
-### Semana 15 — Evals automatizadas
-- [ ] [Using LLM-as-a-Judge for Evaluation](https://hamel.dev/blog/posts/llm-judge/)
-- [ ] [The LLM Evals FAQ](https://hamel.dev/blog/posts/evals-faq/) (léelo por partes, es largo y muy bueno)
-- [ ] Herramientas open source, prueba una: [promptfoo](https://www.promptfoo.dev) o [Inspect](https://inspect.aisi.org.uk)
-- [ ] **Construir:** dataset de evaluación (≥100 casos), métricas de recuperación (recall@k) y de respuesta (fidelidad a las fuentes con LLM-as-judge, validado contra tus etiquetas manuales)
-
-### Semana 16 — Iterar con datos
-- [ ] DeepLearning.AI → *Evaluating AI Agents* (útil también para la fase 5)
-- [ ] **Entregable:** RAG v2. Aplica 2–3 mejoras basadas en tu análisis de errores y publica en el README una tabla **v1 vs v2** con las métricas. Esa tabla vale más que cualquier certificado.
-- [ ] Integra las evals en CI (GitHub Actions): si una métrica baja, el PR falla
-
----
-
-## Fase 5 — Agentes, tool use y MCP (semanas 17–20)
-
-### Semana 17 — Cuándo (y cuándo no) usar agentes
-- [ ] [Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) (Anthropic) — la mejor introducción: flujos de trabajo vs. agentes
-- [ ] [Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
-- [ ] [Writing Tools for Agents](https://www.anthropic.com/engineering/writing-tools-for-agents)
-- [ ] **Construir:** un agente *sin framework* (bucle de tool calling a mano, ~150 líneas) con 3 herramientas. Entender el bucle antes de usar librerías.
-
-### Semana 18 — MCP
-- [ ] Anthropic Academy → **Introduction to Model Context Protocol** y **MCP: Advanced Topics** (gratis)
-- [ ] [Documentación oficial de MCP](https://modelcontextprotocol.io)
-- [ ] [Hugging Face MCP Course](https://huggingface.co/learn/mcp-course) (unidades 1–2)
-- [ ] SDK oficial de tu lenguaje: [Go SDK](https://github.com/modelcontextprotocol/go-sdk) o [C# SDK](https://csharp.sdk.modelcontextprotocol.io)
-
-### Semana 19 — Frameworks y patrones multi-agente
-- [ ] [Hugging Face Agents Course](https://huggingface.co/learn/agents-course) (unidades 1–2)
-- [ ] [Microsoft — AI Agents for Beginners](https://github.com/microsoft/ai-agents-for-beginners): lecciones de planificación, multi-agente y memoria
-- [ ] Prueba un framework ligero: [Pydantic AI](https://ai.pydantic.dev) (encaja con todo lo que ya usas)
-- [ ] Opcional: whitepapers del *5-Day AI Agents Intensive* de Google y Kaggle (gratis, búscalos en Kaggle)
-
-### Semana 20 — Proyecto 3
-**Proyecto 3 — Servidor MCP en Go o C# + agente.** Algo útil de verdad, idealmente ligado a tu trabajo. Ideas: un servidor MCP que da acceso de solo lectura a una base de datos con esquema documentado; uno que consulta tu sistema de tickets o tu API interna.
-- [ ] Servidor MCP con 3–5 herramientas bien descritas, validación de entradas y permisos mínimos
-- [ ] Agente en Python que lo usa para resolver tareas de varios pasos
-- [ ] 20 tareas de evaluación con criterio de éxito claro (¿completó la tarea?, ¿cuántos pasos?, ¿cuánto costó?)
-- [ ] README con diagrama de arquitectura y decisiones (por qué agente y no flujo fijo)
-
----
-
-## Fase 6 — Producción (semanas 21–24)
-
-### Semana 21 — Lecciones de producción
-- [ ] [What We've Learned From A Year of Building with LLMs](https://applied-llms.org) — guía táctica, operativa y estratégica
-- [ ] [Building A Generative AI Platform](https://huyenchip.com/2024/07/25/genai-platform.html) (Chip Huyen): arquitectura completa de un sistema en producción
-- [ ] Caché de prompts, caché semántico, fallbacks entre modelos, timeouts y reintentos
-
-### Semana 22 — Seguridad
-- [ ] [OWASP Top 10 for LLM Applications](https://genai.owasp.org/llm-top-10/)
-- [ ] [Simon Willison sobre prompt injection](https://simonwillison.net/tags/prompt-injection/) (lee los posts sobre la "lethal trifecta")
-- [ ] **Construir:** intenta romper tu propio RAG y tu agente con inyección de prompts (p. ej. instrucciones escondidas en un documento indexado). Documenta qué funcionó y añade defensas.
-
-### Semanas 23–24 — Proyecto 4 (capstone)
-- [ ] Observabilidad con [Langfuse](https://langfuse.com) (open source, puedes alojarlo tú mismo con Docker): trazas, costos y latencia por petición
-
-**Proyecto 4 — Llevar el Proyecto 2 o el 3 a producción.**
-- [ ] Desplegado con Docker en un servicio con capa gratuita
-- [ ] Autenticación, rate limiting y límite de gasto por usuario
-- [ ] Trazas y dashboard de costos/latencia
-- [ ] Evals corriendo en CI
-- [ ] Defensas contra prompt injection documentadas
-- [ ] **Artículo técnico** (Substack, dev.to o LinkedIn) contando el proyecto: problema, arquitectura, qué falló, métricas antes/después
+- Página oficial del examen: [AI-103](https://learn.microsoft.com/credentials/certifications/exams/ai-103/)
+- Guía de estudio oficial: [AI-103 study guide](https://learn.microsoft.com/credentials/certifications/resources/study-guides/ai-103)
 
 ---
 
 ## Mantenerse al día (15 min, 2–3 veces por semana)
-- [Blog de Simon Willison](https://simonwillison.net) — lo más útil del día a día, con criterio
 - [Blog de ingeniería de Anthropic](https://www.anthropic.com/engineering)
-- [Hamel Husain](https://hamel.dev) y [Eugene Yan](https://eugeneyan.com) — práctica de AI engineering
-- [Latent Space](https://www.latent.space) — podcast y newsletter de "AI Engineer"
-- [Canal AI Engineer en YouTube](https://www.youtube.com/@aiDotEngineer) — charlas de la conferencia AI Engineer
+- [Blog de Simon Willison](https://simonwillison.net)
+- [Hamel Husain](https://hamel.dev) y [Eugene Yan](https://eugeneyan.com)
 
-## Para profundizar después de la semana 24 (opcional, gratis)
-- [LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) (Sebastian Raschka): el código del libro es gratuito en GitHub
-- [Stanford CS336: Language Modeling from Scratch](https://stanford-cs336.github.io): si te pica la curiosidad por el lado de modelos
-- Fine-tuning: capítulos de fine-tuning del Hugging Face LLM Course (LoRA, cuándo conviene y cuándo no)
-
-## Libros de pago (para cuando revises el presupuesto, mes 4 en adelante)
-Ordenados por prioridad. Ninguno es necesario para completar el plan.
-1. **AI Engineering** — Chip Huyen (O'Reilly, 2025). El libro de referencia del rol; cubre evals, RAG, agentes, fine-tuning y producción.
-2. **Build a Large Language Model (From Scratch)** — Sebastian Raschka. Complementa la fase 1 si quieres más profundidad.
-3. **Designing Data-Intensive Applications** — Martin Kleppmann. No es de IA, pero es la base de sistemas que todo AI engineer en producción necesita.
+## Teoría opcional (cuando te pique la curiosidad)
+Lo que el plan anterior traía como fase obligatoria y aquí queda como extra:
+- [3Blue1Brown — Neural Networks](https://www.3blue1brown.com/topics/neural-networks)
+- [Karpathy — Neural Networks: Zero to Hero](https://karpathy.ai/zero-to-hero.html) (construir un mini-GPT)
+- Resto del [Google Machine Learning Crash Course](https://developers.google.com/machine-learning/crash-course): cada módulo da insignia
 
 ---
 
-## Progreso por fases
-- [ ] Fase 0 — Python para producción
-- [ ] Fase 1 — Cómo funcionan los LLMs
-- [ ] Fase 2 — APIs + Proyecto 1
-- [ ] Fase 3 — RAG + Proyecto 2
-- [ ] Fase 4 — Evals
-- [ ] Fase 5 — Agentes y MCP + Proyecto 3
-- [ ] Fase 6 — Producción + Proyecto 4
+## Progreso
+- [ ] Preparación (cuentas y entorno)
+- [ ] Semana 1 — Bases y entorno
+- [ ] Semana 2 — API de modelos
+- [ ] Semana 3 — MCP
+- [ ] Semana 4 — Agentes
+- [ ] Mes 2 — RAG + Proyecto 1
+- [ ] Mes 3 — Agentes a fondo + Proyecto 2
+- [ ] Mes 4 — Evals, seguridad, producción
+- [ ] Meses 5–6 — Capstone + examen
